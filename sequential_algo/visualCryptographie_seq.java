@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException; 
+import java.util.Random;
 
 public class visualCryptographie_seq {
     static int image_height;
@@ -17,6 +18,8 @@ public class visualCryptographie_seq {
         
         try {
             BufferedImage image = ImageIO.read(new File("input_file.png"));
+
+            Random rand = new Random();
 
             image_height = image.getHeight();
             image_width = image.getWidth();
@@ -30,30 +33,37 @@ public class visualCryptographie_seq {
                 for (int x = 0; x < image_width; x++) {
                     int pixel = image.getRGB(x, y);
 
-                    if (pixel < -8388608) { //pixel is considered black (RGB value for black == -16777216)
-                        //set 2x2 pixels in outputImage1
-                        outputImage1.setRGB(x * 2, y * 2, -1); // white
-                        outputImage1.setRGB(x * 2 + 1, y * 2, -16777216); // black
-                        outputImage1.setRGB(x * 2, y * 2 + 1, -16777216); // black
-                        outputImage1.setRGB(x * 2 + 1, y * 2 + 1, -1); // white
+                    //get random number (1 or 2)
+                    int randomNumber = rand.nextInt(2);
 
-                        //set 2x2 pixels in outputImage2
-                        outputImage2.setRGB(x * 2, y * 2, -16777216); // black
-                        outputImage2.setRGB(x * 2 + 1, y * 2, -1); // white
-                        outputImage2.setRGB(x * 2, y * 2 + 1, -1); // white
-                        outputImage2.setRGB(x * 2 + 1, y * 2 + 1, -16777216); // black
+                    if (pixel < -8388608) { //pixel is considered black (RGB value for black == -16777216)
+                        if (randomNumber == 0) {
+                            //set 2x2 pixels in outputImage1
+                            outputImage1.setRGB(x * 2, y * 2, -1); // white
+                            outputImage1.setRGB(x * 2 + 1, y * 2, -16777216); // black
+                            outputImage1.setRGB(x * 2, y * 2 + 1, -16777216); // black
+                            outputImage1.setRGB(x * 2 + 1, y * 2 + 1, -1); // white
+                        } else {
+                            //set 2x2 pixels in outputImage2
+                            outputImage2.setRGB(x * 2, y * 2, -16777216); // black
+                            outputImage2.setRGB(x * 2 + 1, y * 2, -1); // white
+                            outputImage2.setRGB(x * 2, y * 2 + 1, -1); // white
+                            outputImage2.setRGB(x * 2 + 1, y * 2 + 1, -16777216); // black
+                        }
                     } else { //pixel is considered white (RGB value for white == -1)
-                        //set 2x2 pixels in outputImage1
-                        outputImage1.setRGB(x * 2, y * 2, -16777216); // black
-                        outputImage1.setRGB(x * 2 + 1, y * 2, -1); // white
-                        outputImage1.setRGB(x * 2, y * 2 + 1, -1); // white
-                        outputImage1.setRGB(x * 2 + 1, y * 2 + 1, -16777216); // black
-                        
-                        //set 2x2 pixels in outputImage2
-                        outputImage2.setRGB(x * 2, y * 2, -16777216); // black
-                        outputImage2.setRGB(x * 2 + 1, y * 2, -1); // white
-                        outputImage2.setRGB(x * 2, y * 2 + 1, -1); // white
-                        outputImage2.setRGB(x * 2 + 1, y * 2 + 1, -16777216); // black
+                        if (randomNumber == 0) {
+                            //set 2x2 pixels in outputImage1
+                            outputImage1.setRGB(x * 2, y * 2, -16777216); // black
+                            outputImage1.setRGB(x * 2 + 1, y * 2, -1); // white
+                            outputImage1.setRGB(x * 2, y * 2 + 1, -1); // white
+                            outputImage1.setRGB(x * 2 + 1, y * 2 + 1, -16777216); // black
+                        } else {
+                            //set 2x2 pixels in outputImage2
+                            outputImage2.setRGB(x * 2, y * 2, -16777216); // black
+                            outputImage2.setRGB(x * 2 + 1, y * 2, -1); // white
+                            outputImage2.setRGB(x * 2, y * 2 + 1, -1); // white
+                            outputImage2.setRGB(x * 2 + 1, y * 2 + 1, -16777216); // black
+                        }
                     }
                 }
             }
