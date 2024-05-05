@@ -1,18 +1,20 @@
 //fileex: to run the code type in these commands in the command line:
-//fileex: javac VisualCrpytographie_seq.java
-//fileex: java VisualCrpytographie_seq.java
+//fileex: javac visualCryptographie_seq.java
+//fileex: java visualCryptographie_seq.java
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException; 
 
-public class VisualCrpytographie_seq {
+public class visualCryptographie_seq {
     static int image_height;
     static int image_width;
 
     //this code only works for black and white images!
     public static void main(String[] args) {
+        long startTime = System.currentTimeMillis();
+        
         try {
             BufferedImage image = ImageIO.read(new File("input_file.png"));
 
@@ -63,5 +65,10 @@ public class VisualCrpytographie_seq {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+
+        System.out.println("Execution time in milliseconds: " + elapsedTime);
     }
 }
